@@ -32,7 +32,7 @@ angular.module('gradjanin', [
 		if($scope.gradjanin.id){
 			$log.info($scope.gradjanin);
 			
-			$scope.invoice.$update({gradjaninId:$scope.gradjanin.id},function () {
+			$scope.gradjanin.$update({gradjaninId:$scope.gradjanin.id},function () {
 				$location.path('/gradjanin-list');
 			});
 		}
@@ -43,13 +43,13 @@ angular.module('gradjanin', [
 		}
 		$log.info("save");
 	}
-//
-//	$scope.delete = function () {
-//		if($scope.invoice.id){
-//			$scope.invoice.$delete({invoiceId:$scope.invoice.id}, function () {
-//				$location.path('invoiceList');
-//			});
-//		}
-//	}
+
+	$scope.delete = function () {
+		if($scope.gradjanin.id){
+			$scope.gradjanin.$delete({gradjaninId:$scope.gradjanin.id}, function () {
+				$location.path('/gradjanin-list');
+			});
+		}
+	}
 
 });
