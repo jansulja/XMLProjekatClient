@@ -1,0 +1,60 @@
+<div>
+	<form>
+		<div class="form-group">
+			<label >Ime:</label>
+			<input class="form-control" ng-model="gradjanin.ime"></input>
+		</div>
+		<div class="form-group">
+			<label>Prezime:</label>
+			<input class="form-control" ng-model="gradjanin.prezime"></input>
+		</div>
+		<div class="form-group">
+			<label>Broj Lične Karte:</label>
+			<input class="form-control" ng-model="gradjanin.brojlicne"></input>
+		</div>
+		<div class="form-group">
+			<label>Datum Rodjenja:</label>
+			<div class="input-group">
+				<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="gradjanin.datumrodjenja" is-open="dateOpened" close-text="Close" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="openDatepicker($event, 'dateOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Pol:</label>
+			<input class="form-control" ng-model="gradjanin.pol"></input>
+		</div>
+		<div class="form-group">
+			<label>JMBG:</label>
+			<input class="form-control" ng-model="gradjanin.jmbg"></input>
+		</div>
+		
+		<div class="form-group">
+			<label >Mesto Rodjenja:</label>
+			<input class="form-control" ng-model="gradjanin.mestoRodjenja"></input>
+		</div>
+		
+		<div class="form-group">
+			<label >Opština Rodjenja:</label>
+			<input class="form-control" ng-model="gradjanin.opstinaRodjenja"></input>
+		</div>
+		<div class="form-group">
+			<label>Država:</label>
+			<input class="form-control" ng-model="gradjanin.drzava"></input>
+		</div>
+		<div class="form-group">
+			<label>Broj Telefona:</label>
+			<input class="form-control" ng-model="gradjanin.brojTelefona"></input>
+		</div>
+		<div class="form-group">
+			<label>E-mail:</label>
+			<input class="form-control" ng-model="gradjanin.email"></input>
+		</div>
+		
+	</form>
+</div>
+<div>
+    <button class="btn" ng-click="save()">Sačuvaj</button>
+    <button class="btn" ng-click="delete()">Odbaci</button>
+</div>
