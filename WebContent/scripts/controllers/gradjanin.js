@@ -12,7 +12,7 @@ angular.module('gradjanin', [
 		
 		Gradjanin.get({'gradjaninId':gradjaninId}).$promise.then(function (data) {
 			$scope.gradjanin = data;
-	
+			
 		});
 	}
 	
@@ -27,16 +27,14 @@ angular.module('gradjanin', [
 		$scope[opened] = true;
 	};
 
-	//modalni dijalog za stavku fakutre
 	
-
-	//cuvanje izmena
 	$scope.save = function () {
 		if($scope.gradjanin.id){
-			//zbog cega redirekcija ide na callback?
-//			$scope.invoice.$update({invoiceId:$scope.invoice.id},function () {
-//				$location.path('/invoiceList');
-//			});
+			$log.info($scope.gradjanin);
+			
+			$scope.invoice.$update({gradjaninId:$scope.gradjanin.id},function () {
+				$location.path('/gradjanin-list');
+			});
 		}
 		else{
 			$scope.gradjanin.$save(function () {
