@@ -15,7 +15,7 @@ angular.module('resource.user', ['angular-md5'])
 		},
 		logout : function () {
 			$http({
-				url: "http://localhost:8080/xws/api/user/logout",
+				url: "http://localhost:8089/xws/api/user/logout",
 				method: "GET",
 			}).success(function () {
 				$location.path("login");
