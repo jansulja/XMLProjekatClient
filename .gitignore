@@ -1,5 +1,5 @@
 /build/
 
 /.settings/
-WebContent/scripts/factories/*
+WebContent/scripts/factories
 /.classpath
