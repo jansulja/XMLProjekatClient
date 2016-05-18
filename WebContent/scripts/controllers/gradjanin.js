@@ -29,6 +29,9 @@ angular.module('gradjanin', [
 
 	
 	$scope.save = function () {
+		
+		
+		
 		if($scope.gradjanin.id){
 			$log.info($scope.gradjanin);
 			
@@ -51,5 +54,8 @@ angular.module('gradjanin', [
 			});
 		}
 	}
+	
+	
+	
 
 });

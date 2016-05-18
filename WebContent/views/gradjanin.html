@@ -1,8 +1,8 @@
 <div>
-	<form>
+	<form  novalidate="novalidate" ng-submit="save()">
 		<div class="form-group">
 			<label >Ime:</label>
-			<input class="form-control" ng-model="gradjanin.ime"></input>
+			<input  class="form-control" ng-model="gradjanin.ime" required required-err-type="requiredMy"/>
 		</div>
 		<div class="form-group">
 			<label>Prezime:</label>
@@ -49,12 +49,16 @@
 		</div>
 		<div class="form-group">
 			<label>E-mail:</label>
-			<input class="form-control" ng-model="gradjanin.email"></input>
+			<input type="email" class="form-control" ng-model="gradjanin.email"></input>
+		</div>
+		
+		<div>
+		    <button class="btn" type="submit">Sačuvaj</button>
+		    <button class="btn" ng-click="delete()">Obriši</button>
 		</div>
 		
 	</form>
-</div>
-<div>
-    <button class="btn" ng-click="save()">Sačuvaj</button>
-    <button class="btn" ng-click="delete()">Obriši</button>
+	
+	
+	
 </div>

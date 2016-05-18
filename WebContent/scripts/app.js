@@ -23,7 +23,8 @@
   'user',
   'resource.user',
   'gradjani',
-  'gradjanin'
+  'gradjanin',
+  'jcs-autoValidate'
   ])
  .config(function ($routeProvider) {
   $routeProvider
@@ -111,4 +112,23 @@
       size: size,
     });
   };
-});
+})
+
+
+.run([
+        'bootstrap3ElementModifier',
+        function (bootstrap3ElementModifier) {
+              bootstrap3ElementModifier.enableValidationStateIcons(true);
+}])
+
+ .run([
+    'defaultErrorMessageResolver',
+    function (defaultErrorMessageResolver) {
+        // passing a culture into getErrorMessages('fr-fr') will get the culture specific messages
+        // otherwise the current default culture is returned.
+        defaultErrorMessageResolver.getErrorMessages().then(function (errorMessages) {
+          errorMessages['requiredMy'] = 'Obavezno polje!';
+          
+        });
+    }
+]);
