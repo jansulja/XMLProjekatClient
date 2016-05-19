@@ -42,7 +42,7 @@
   })
   .when('/login', {
     templateUrl: 'views/login.html',
-    controller: 'userCtrl'
+    controller: 'gradjaninCtrl'
   })
   .when('/gradjanin-list', {
 	  
