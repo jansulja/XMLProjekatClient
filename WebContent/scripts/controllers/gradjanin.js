@@ -4,7 +4,7 @@ angular.module('gradjanin', [
 	'resource.gradjani',
 	'ui.bootstrap'])
 
-.controller('gradjaninCtrl', function (Gradjanin, $scope, $routeParams, $log, $location, $q, $http) {
+.controller('gradjaninCtrl', function (Gradjanin,$rootScope, $scope, $routeParams, $log, $location, $q, $http) {
 	
 	if($routeParams.gradjaninId!='new'){
 		var gradjaninId = $routeParams.gradjaninId;
@@ -56,6 +56,27 @@ angular.module('gradjanin', [
 	}
 	
 	
+	$scope.current = { ime: "", prezime: "", role: ""};
+
+	/*$scope.$watch( 'current',
+		function(newValue, oldValue){
+			console.log('firstName Changed');
+			console.log(newValue);
+			console.log(oldValue);
+			$scope.triggerChangeWithApply();
+		}
+	);*/
+
+	/*$scope.triggerChangeWithApply = function () {
+		
+		console.log('First name being reset');
+		$scope.$apply(function(){
+			$scope.current = 'lll';
+			}
+		);
+		
+	};*/
+
 	$scope.login = function () {
 
 		var deferred = $q.defer();
@@ -69,11 +90,20 @@ angular.module('gradjanin', [
 		});
 
 		var promise = deferred.promise;
-		$scope.gradjanin = {};
+		
+
 		promise.then(function (data) {
-			$log.info(data);
+			
+			$rootScope.current.ime = data.ime;
+			$rootScope.current.prezime = data.prezime;
+			$rootScope.current.role = data.role;
+			
+
+			
 			$location.path('gradjanin-list');
 		});
 	}
+
+
 
 });

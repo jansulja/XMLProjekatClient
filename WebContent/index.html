@@ -27,7 +27,7 @@
     <!-- Add your site or application content here -->
     <div class="container">
       <div class="header">
-        <ul class="nav nav-pills pull-right">
+        <ul class="nav nav-pills pull-right"  >
           <li class="active"><a ng-click="about()">About</a></li>
           <li class="active"><a ng-href="#/gradjanin-list">Gradjani</a></li>
           <li class="active"><a ng-href="#/">Pravni Akti</a></li>
@@ -35,6 +35,7 @@
           <li class="active"><a ng-href="#/">Profil</a></li>
           <li  ng-if="!isLoginPage()" ><a ng-href="#/">Home</a></li>
           <li><a ng-if="!isLoginPage()" ng-click="logout()">Logout</a></li>
+          <li ng-if="!isLoginPage()"><a ng-href="#/">{{current}}</a></li>
         </ul>
         <h3 class="text-muted">Skupština Grada Novog Sada</h3>
       </div>
@@ -100,6 +101,7 @@
     <script src="scripts/factories/invoiceItemFactory.js"></script>
     <script src="scripts/factories/userFactory.js"></script>
     <script src="scripts/factories/gradjaninFactory.js"></script>
+    <script src="scripts/factories/currentUserFactory.js"></script>
     <!-- endbuild -->
 
 

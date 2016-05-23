@@ -100,11 +100,22 @@
     $http.defaults.transformResponse.unshift(parseResponse);//ovu funkciju stavimo na pocetak niza transformer funkcija
   }
   ])
- .controller('appCtrl', function($scope, User, $log, $location, $modal){
+ .controller('appCtrl', function($scope, User, $log, $location, $modal,$rootScope){
   $scope.logout = User.logout;
   $scope.isLoginPage = function () {
     return $location.path() === '/login';
   };
+
+
+  $rootScope.current = "";
+ /*var promise = CurrentUser.getCurrentUser();
+   $scope.role = {};
+   promise.then(function (data) {
+     $log.info(data);
+     $scope.role = data;
+   });*/
+
+  
   $scope.about = function (size) {
     var modalInstance = $modal.open({
       templateUrl: 'views/about.html',
@@ -112,6 +123,12 @@
       size: size,
     });
   };
+
+
+
+    
+  
+
 })
 
 
