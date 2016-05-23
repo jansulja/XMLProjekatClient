@@ -24,7 +24,9 @@
   'resource.user',
   'gradjani',
   'gradjanin',
-  'jcs-autoValidate'
+  'jcs-autoValidate',
+  'resource.akt',
+  'akti'
   ])
  .config(function ($routeProvider) {
   $routeProvider
@@ -53,6 +55,12 @@
   .when('/gradjanin/:gradjaninId', {
     templateUrl: 'views/gradjanin.html',
     controller: 'gradjaninCtrl'
+  })
+  .when('/akt-list', {
+	  
+	  templateUrl: 'views/akt-list.html',
+	  controller: 'aktListCtrl'
+	  
   })
   .otherwise({
     redirectTo: '/'
@@ -102,12 +110,13 @@
   ])
  .controller('appCtrl', function($scope, User, $log, $location, $modal,$rootScope){
   $scope.logout = User.logout;
+  
   $scope.isLoginPage = function () {
     return $location.path() === '/login';
   };
 
 
-  $rootScope.current = "";
+  $rootScope.current = { ime: "", prezime: "", role: ""};
  /*var promise = CurrentUser.getCurrentUser();
    $scope.role = {};
    promise.then(function (data) {

@@ -1,0 +1,33 @@
+<div>
+
+	
+	
+	<table class="table table-striped table-bordered table-condensed table-hover">
+		<thead>
+			<tr class="ui-bar-a">
+				
+					
+					<th>Naziv</th>
+					<th>Naziv Uvodnog Dela</th>
+					<th>Predmet Uredjivanja</th>
+					<th>Definicije</th>
+					
+					
+			</tr>
+		</thead>
+			<tbody>
+	<tr ng-repeat="akt in akti" ng-click="insertOrEditAkt(akt)">
+			
+			<td>{{akt.Naziv}}</td>
+			<td>{{akt.Uvodni_deo.naziv}}</td>
+			<td>{{akt.Uvodni_deo.Predmet_uredjivanja}}</td>
+			<td><spam ng-repeat="definicija in akt.Uvodni_deo.Definicija">{{definicija}}</spam></td>
+		
+		</tr>
+	</table>
+	
+	<div>
+		<button class="btn" ng-click="insertOrEditAkt()">Dodaj</button>
+	</div>
+</div>
+

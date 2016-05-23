@@ -56,7 +56,7 @@ angular.module('gradjanin', [
 	}
 	
 	
-	$scope.current = { ime: "", prezime: "", role: ""};
+	
 
 	/*$scope.$watch( 'current',
 		function(newValue, oldValue){
