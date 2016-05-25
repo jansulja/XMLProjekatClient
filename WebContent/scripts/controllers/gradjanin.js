@@ -99,8 +99,12 @@ angular.module('gradjanin', [
 			$rootScope.current.role = data.role;
 			
 
+			if(data.role === 'G'){
+				$location.path('akt-list');
+			}else if(data.role === 'O'){
+				$location.path('akt-list');
+			}
 			
-			$location.path('gradjanin-list');
 		});
 	}
 

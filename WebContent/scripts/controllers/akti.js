@@ -3,7 +3,7 @@
 angular.module('akti', ['resource.akt','angular-md5'])
 
 
- .controller('aktListCtrl', function (Akt, $scope, $location, md5, $log) {
+ .controller('aktListCtrl', function (Akt, $scope, $location, md5, $log,$rootScope) {
  	
 	$scope.akti = Akt.query();
 	console.log($scope.akti);
@@ -28,6 +28,16 @@ angular.module('akti', ['resource.akt','angular-md5'])
  	$scope.setSelectedOdredba = function (odredba) {
  		
  		$scope.selectedOdredba = odredba;
+
+ 	}
+
+ 	$scope.isOdbornik = function () {
+ 		
+ 		if($rootScope.current.role === 'O'){
+ 			return true;
+ 		}else{
+ 			return false;
+ 		}
 
  	}
 
