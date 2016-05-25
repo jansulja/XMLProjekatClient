@@ -78,7 +78,7 @@ angular.module('gradjanin', [
 	};*/
 
 	$scope.login = function () {
-
+		console.log($scope.gradjanin);
 		var deferred = $q.defer();
 			//user.password = md5.createHash(user.password);
 		$http({

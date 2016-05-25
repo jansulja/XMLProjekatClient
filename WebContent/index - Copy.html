@@ -33,17 +33,95 @@
         <ul class="nav nav-pills pull-right"  >
           <li class="active"><a ng-click="about()">About</a></li>
           <li class="active"><a ng-href="#/gradjanin-list">Gradjani</a></li>
-          <li class="active"><a ng-href="#/akt-list">Pravni Akti</a></li>
+          <li class="active"><a ng-href="#/">Pravni Akti</a></li>
           <li class="active"><a ng-href="#/">Odbornici</a></li>
           <li class="active"><a ng-href="#/">Profil</a></li>
           <li  ng-if="!isLoginPage()" ><a ng-href="#/">Home</a></li>
           <li><a ng-if="!isLoginPage()" ng-click="logout()">Logout</a></li>
-          <li ng-if="!isLoginPage()"><a ng-href="#/">{{current.ime}}</a></li>
+          <li ng-if="!isLoginPage()"><a ng-href="#/">{{current}}</a></li>
         </ul>
         <h3 class="text-muted">Skupština Grada Novog Sada</h3>
       </div>
 
-      <div ng-view=""></div>
+      <div>
+<div>
+
+  <form  novalidate="novalidate" ng-submit="save()">
+    
+    <div class="form-group">
+    <label>Akt:</label><br>
+      <label >Naziv akta:</label>
+      <input  class="form-control" ng-model="Akt.naziv" required required-err-type="requiredMy"/>
+    </div>
+   
+    <div class="form-group">
+    <label>Uvodni Deo:</label><br>
+      <label>Predmet uredjivanja:</label>
+      <input class="form-control" ng-model="Uvodni_deo.Predmet_uredjivanja"></input>
+      <label>Definicija:</label>
+      <input class="form-control" ng-model="Uvodni_deo.Definicija"></input>
+    </div>
+    
+    <div class="form-group">
+      <label>Glavni deo:</label> <br>
+      <label>Prava i obaveze:</label>
+      <input class="form-control" ng-model="Glavni_deo.Prava_i_obaveze"></input>
+    </div>
+    
+     <div class="form-group">
+     <label>Ovlascenje:</label>
+     <input class="form-control" ng-model="Ovlascenje.OvlasceniOrgan"></input>
+     <label>Obim:</label>
+     <input class="form-control" ng-model="Ovlascenje.Obim"></input>
+     <label>Period vazenja:</label>
+     <input class="form-control" ng-model="Ovlascenje.Period_vazenja"></input>
+     </div>
+
+
+      <div class="form-group">
+      <label>Kazena odredba:</label><br>
+      <label>Norma:</label>
+      <input class="form-control" ng-model="Kaznena_odredba.Norma"></input>
+      <label>Kaznjiva radnja i sankcija:</label><br>
+      <label>Kaznjiva radnja:</label>
+      <input class="form-control" ng-model="Kaznjiva_radnja_i_sankcija.Kaznjiva_radnja"></input>
+      <label>Sankcija:</label>
+      <input class="form-control" ng-model="Kaznjiva_radnja_i_sankcija.Sankcija"></input>
+      </div>
+   
+
+
+      <div class="form-group">
+      <label>Zavrsni deo:</label><br>
+      <label>Prelazne odredbe:</label>
+      <input class="form-control" ng-model="Zavrsni_deo.Prelazne_odredbe"></input>
+      <label>Zavrsne odredbe:</label>
+      <input class="form-control" ng-model="Zavrsni_deo.Zavrsne_odredbe"></input>
+      <label>Datum</label>
+      <div class="input-group">
+        <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="Zavrsni_deo.Datum" is-open="dateOpened" close-text="Close" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="openDatepicker($event, 'dateOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </div>
+      <label>Broj propisa</label>
+      <input class="form-control" ng-model="Zavrsni_deo.Broj_propisa"></input>
+      </div>
+    
+    
+    
+    <div>
+        <button class="btn" type="submit">Sačuvaj</button>
+        <button class="btn" ng-click="delete()">Obriši</button>
+    </div>
+    
+    </form>
+  
+  
+  
+</div>
+
+
 
       <div class="footer">
         <p><span class="glyphicon glyphicon-copyright-mark"></span> Tim22 2016</p>
@@ -105,9 +183,6 @@
     <script src="scripts/factories/userFactory.js"></script>
     <script src="scripts/factories/gradjaninFactory.js"></script>
     <script src="scripts/factories/currentUserFactory.js"></script>
-    <script src="scripts/factories/aktFactory.js"></script>
-    <script src="scripts/controllers/akti.js"></script>
-    <script src="scripts/controllers/akt.js"></script>
     <!-- endbuild -->
 
 

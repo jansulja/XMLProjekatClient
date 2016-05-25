@@ -26,6 +26,7 @@
   'gradjanin',
   'jcs-autoValidate',
   'resource.akt',
+  'akt',
   'akti'
   ])
  .config(function ($routeProvider) {
@@ -62,6 +63,12 @@
 	  controller: 'aktListCtrl'
 	  
   })
+  .when('/akt/:aktId', {
+	  templateUrl: 'views/akt.html',
+	  controller: 'aktCtrl'
+  })
+  
+  
   .otherwise({
     redirectTo: '/'
   });
