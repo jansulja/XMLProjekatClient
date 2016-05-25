@@ -32,8 +32,8 @@
  .config(function ($routeProvider) {
   $routeProvider
   .when('/', {
-	  templateUrl: 'views/gradjanin-list.html',
-	  controller: 'gradjaninListCtrl'
+	  templateUrl: 'views/login.html',
+    controller: 'gradjaninCtrl'
   })
   .when('/invoice-list', {
     templateUrl: 'views/invoice-list.html',
@@ -68,13 +68,15 @@
 	  controller: 'aktCtrl'
   })
   
-  
+  .when('/unauthorised', {
+    templateUrl: 'views/unauthorised.html',
+  })
   .otherwise({
     redirectTo: '/'
   });
 })
  //tricky deo
- .factory('authHttpResponseInterceptor',['$q','$location',function($q,$location){// fabrika koja pravi interceptor
+ .factory('authHttpResponseInterceptor',['$q','$location','$rootScope',function($q,$location,$rootScope){// fabrika koja pravi interceptor
   return {
     response: function(response){//ako smo dobili noramalan odgovor vratimo taj odgovor
       if (response.status === 401) {
@@ -83,9 +85,17 @@
       return response || $q.when(response);
     },
     responseError: function(rejection, x, y) {//ako smo dobili gresku
-      if (rejection.status === 401) {//ako je greska 401 (korisnik nije prijavljen na sistem)
+      if (rejection.status === 401 ) {//ako je greska 401 (korisnik nije prijavljen na sistem)
         console.log("Response Error 401",rejection);
-        $location.path('/login');//redirektujemo se na login
+        if($rootScope.current.ime == ""){
+
+           $location.path('/login');
+        }else{
+
+          $location.path('/unauthorised');
+        }
+
+       //redirektujemo se na login
       }
       return $q.reject(rejection);//i odbacimo zahtev
     }
@@ -101,11 +111,17 @@
  //"Not logged in"
  //ovaj opis greske ne moze da se konvertuje u JSON (pogeldaj slajd $resource - napisano sitnim slovima)
  //zbog toga moramo da izmenimo transformResponce 
- .run(['$http','$location',//to radimo u run, jer se izvrsava pre svega ostalog
-  function($http, $location) {
+ .run(['$http','$location','$rootScope',//to radimo u run, jer se izvrsava pre svega ostalog
+  function($http, $location, $rootScope) {
     var parseResponse = function(response, headers, status) {//ova funkcija proba da konvertuje pristigli odgovor u JSON
       if(status===401){//ako je odgovor neautorizovan radimo redirekciju
-        $location.path('login');
+        if($rootScope.current.ime == ""){
+
+           $location.path('login');
+        }else{
+
+          $location.path('unauthorised');
+        }
       }
       else{
         return response;//inace vratimo odgovor
@@ -115,12 +131,21 @@
     $http.defaults.transformResponse.unshift(parseResponse);//ovu funkciju stavimo na pocetak niza transformer funkcija
   }
   ])
- .controller('appCtrl', function($scope, User, $log, $location, $modal,$rootScope){
-  $scope.logout = User.logout;
+ .controller('appCtrl', function($scope, User, $log, $location, $modal,$rootScope,$http){
+  $scope.logout = function () {
+      $http({
+        url: "http://localhost:8089/xws/api/gradjanin/logout",
+        method: "GET"
+      }).success(function () {
+        $rootScope.current = { ime: "", prezime: "", role: ""};
+        $location.path("login");
+      });
+    }
   
   $scope.isLoginPage = function () {
     return $location.path() === '/login';
   };
+
 
 
   $rootScope.current = { ime: "", prezime: "", role: ""};
