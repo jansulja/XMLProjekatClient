@@ -6,6 +6,7 @@ angular.module('akt', [
 
 .controller('aktCtrl', function (Akt,$rootScope, $scope, $routeParams, $log, $location, $q, $http) {
 	
+	//---------------Osnovno nesto---------------------------------------------------------
 	if($routeParams.aktId!='new'){
 		var aktId = $routeParams.aktId;
 		
@@ -20,25 +21,56 @@ angular.module('akt', [
 		$scope.akt = new Akt();
 		
 	}
-	//funkcija koja otvara datepicker
+
+	//-------------------------------------------------------------------------------------------------
+
+
+	//--------Datepicker funkcija----------------------------------------------------------------------
 	$scope.openDatepicker = function($event, opened) {
 		$event.preventDefault();
 		$event.stopPropagation();
 		$scope[opened] = true;
 	};
+	//-------------------------------------------------------------------------------------------------
 	
-	$scope.items = [];
-	
-	$scope.Definicija = function(){
-		
-		 $scope.items.push({ 
-//	            inlineChecked: false,
-//	            question: "",
-//	            questionPlaceholder: "foo",
-//	            text: ""
-	          });
-	        };
 
+//----------------Dodavanje i brisanje definicija--------------------------------------------------
+  //promenljiva sa svim definicijama
+  $scope.listaDefinicija = [{id: 'choice1'}];
+  
+  $scope.dodajDefiniciju = function($event) {
+  	$event.preventDefault();
+	$event.stopPropagation();
+    var newItemNo = $scope.listaDefinicija.length+1;
+    $scope.listaDefinicija.push({'id':'choice'+newItemNo});
+  };
+    
+  $scope.ukloniDefiniciju = function($event) {
+  	$event.preventDefault();
+	$event.stopPropagation();
+    var lastItem = $scope.listaDefinicija.length-1;
+    $scope.listaDefinicija.splice(lastItem);
+  };
+//-------------------------------------------------------------------------------------------------
+
+//----------------Dodavanje i brisanje ovlascenja--------------------------------------------------
+$scope.listaOvlascenja = [{id: 'ovlascenje1'}];
+
+$scope.dodajOvlascenje = function($event){
+	$event.preventDefault();
+	$event.stopPropagation();
+	var newItemNo = $scope.listaOvlascenja.length+1;
+	$scope.listaOvlascenja.push({'id':'choice'+newItemNo})
+};
+
+$scope.ukloniOvlascenje = function($event){
+	$event.preventDefault();
+	$event.stopPropagation();
+	var lastItem = $scope.listaOvlascenja.length-1;
+	$scope.listaOvlascenja.splice(lastItem);
+};
+
+//-------------------------------------------------------------------------------------------------
 	
 	$scope.save = function () {
 		

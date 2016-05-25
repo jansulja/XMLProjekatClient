@@ -2,75 +2,96 @@
 
   <form  novalidate="novalidate" ng-submit="save()">
     
+    <label>Akt:</label>
+    
     <div class="form-group">
-    <label>Akt:</label><br>
-      <label >Naziv akta:</label>
-      <input  class="form-control" ng-model="Akt.naziv" required required-err-type="requiredMy"/>
+     	<label >Naziv akta:</label>
+        <input  class="form-control" ng-model="Akt.naziv" required required-err-type="requiredMy"/>
     </div>
    
+    <label>Uvodni Deo:</label>
     <div class="form-group">
-    <label>Uvodni Deo:</label><br>
-      <label>Predmet uredjivanja:</label>
-      <input class="form-control" ng-model="Uvodni_deo.Predmet_uredjivanja"></input>
-      
+      	<label>Predmet uredjivanja:</label>
+     	<input class="form-control" ng-model="Uvodni_deo.Predmet_uredjivanja"></input>
+    </div>
      
-<!--       <input class="form-control" ng-model="Uvodni_deo.Definicija"></input> -->
-    
-   <label>Definicije:</label><br>
-   <div>
-    <div ng-repeat="item in items">
-        Definicija
-    	<input class="form-control" ng-model="Uvodni_deo.Definicija"></input>
-    </div>
-    <button ng-click="Definicija()">Dodaj definiciju</button>
-    </div>
-    </div>
+<!--////////////////// Dodavanje definicija /////////////////////////////////////////////////////////////-->
+   <label>Definicije:</label>
+  	    <fieldset  data-ng-repeat="definicija in listaDefinicija">
+  	    <div class="form-group">
+        <input class="form-control" type="text" ng-model="Uvodni_deo.Definicija" name="" placeholder="Unesi definiciju">
+        <button class="remove" ng-show="$last" ng-click="ukloniDefiniciju($event)">-</button>
+        </div>
+        </fieldset>
+        <button class="addfields" ng-click="dodajDefiniciju($event)">Dodaj definiciju</button>
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////-->    
  
     
+ 
+    <label>Glavni deo:</label> <br>
     <div class="form-group">
-      <label>Glavni deo:</label> <br>
-      <label>Prava i obaveze:</label>
-      <input class="form-control" ng-model="Glavni_deo.Prava_i_obaveze"></input>
+      	<label>Prava i obaveze:</label>
+      	<input class="form-control" ng-model="Glavni_deo.Prava_i_obaveze"></input>
     </div>
-    
+
+<!--////////////////// Dodavanje ovlascenja /////////////////////////////////////////////////////////////-->
+	<fieldset  data-ng-repeat="ovlascenje in listaOvlascenja">
      <div class="form-group">
-     <label>Ovlascenje:</label>
-     <input class="form-control" ng-model="Ovlascenje.OvlasceniOrgan"></input>
-     <label>Obim:</label>
-     <input class="form-control" ng-model="Ovlascenje.Obim"></input>
-     <label>Period vazenja:</label>
-     <input class="form-control" ng-model="Ovlascenje.Period_vazenja"></input>
+     	<label>Ovlascenje:</label>
+     	<input class="form-control" type="text" ng-model="Ovlascenje.OvlasceniOrgan" name="" placeholder="Unesi ovlascenje"></input>
      </div>
 
+     <div class="form-group">
+     	<label>Obim:</label>
+     	<input class="form-control" type="text" ng-model="Ovlascenje.Obim" name="" placeholder="Unesi obim"></input>
+     </div>
+     <div class="form-group">
+     	<label>Period vazenja:</label>
+    	<input class="form-control" type="text" ng-model="Ovlascenje.Period_vazenja" name="" placeholder="Unesi period"></input>
+     <button class="remove" ng-show="$last" ng-click="ukloniOvlascenje($event)">-</button>
+     </div>
+     </fieldset>
+      <button class="addfields" ng-click="dodajOvlascenje($event)">Dodaj ovlascenje</button><br>
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-      <div class="form-group">
-      <label>Kazena odredba:</label><br>
-      <label>Norma:</label>
-      <input class="form-control" ng-model="Kaznena_odredba.Norma"></input>
-      <label>Kaznjiva radnja i sankcija:</label><br>
-      <label>Kaznjiva radnja:</label>
-      <input class="form-control" ng-model="Kaznjiva_radnja_i_sankcija.Kaznjiva_radnja"></input>
-      <label>Sankcija:</label>
-      <input class="form-control" ng-model="Kaznjiva_radnja_i_sankcija.Sankcija"></input>
-      </div>
+ 	<label>Kazena odredba:</label><br>
+    <div class="form-group">
+      	<label>Norma:</label>
+      	<input class="form-control" ng-model="Kaznena_odredba.Norma"></input>
+    </div>
+<label>Kaznjiva radnja i sankcija:</label><br> 	
+    <div class="form-group">   	
+      	<label>Kaznjiva radnja:</label>
+      	<input class="form-control" ng-model="Kaznjiva_radnja_i_sankcija.Kaznjiva_radnja"></input>
+    </div>  	
+    <div class="form-group">   	
+      	<label>Sankcija:</label>
+      	<input class="form-control" ng-model="Kaznjiva_radnja_i_sankcija.Sankcija"></input>
+    </div>
    
 
-
-      <div class="form-group">
-      <label>Zavrsni deo:</label><br>
-      <label>Prelazne odredbe:</label>
-      <input class="form-control" ng-model="Zavrsni_deo.Prelazne_odredbe"></input>
-      <label>Zavrsne odredbe:</label>
-      <input class="form-control" ng-model="Zavrsni_deo.Zavrsne_odredbe"></input>
-      <label>Datum</label>
-      <div class="input-group">
-        <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="Zavrsni_deo.Datum" is-open="dateOpened" close-text="Close" />
-        <span class="input-group-btn">
+    <label>Zavrsni deo:</label>
+    <div class="form-group">
+	      <label>Prelazne odredbe:</label>
+	      <input class="form-control" ng-model="Zavrsni_deo.Prelazne_odredbe"></input>
+	 </div>
+	 <div class="form-group">     
+	      <label>Zavrsne odredbe:</label>
+	      <input class="form-control" ng-model="Zavrsni_deo.Zavrsne_odredbe"></input>
+	 </div>    
+	 <div class="form-group">  
+	      <label>Datum</label>
+	      <div class="input-group">
+          <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="Zavrsni_deo.Datum" is-open="dateOpened" close-text="Close" />
+          <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="openDatepicker($event, 'dateOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
-        </span>
+          </span>
+      
       </div>
-      <label>Broj propisa</label>
-      <input class="form-control" ng-model="Zavrsni_deo.Broj_propisa"></input>
+      </div>
+      <div class="form-group">  
+	      <label>Broj propisa</label>
+	      <input class="form-control" ng-model="Zavrsni_deo.Broj_propisa"></input>
       </div>
     
     
