@@ -71,6 +71,67 @@ $scope.ukloniOvlascenje = function($event){
 };
 
 //-------------------------------------------------------------------------------------------------
+
+
+//----------------Dodavanje i brisanje kaznenih radnji i sankcija----------------------------------
+$scope.listaradnjiISankcija = [{id: 'radnjaISankcija'}];
+
+$scope.dodajRadnjaISankcija = function($event){
+	$event.preventDefault();
+	$event.stopPropagation();
+	var newItemNo = $scope.listaradnjiISankcija.length+1;
+	$scope.listaradnjiISankcija.push({'id':'choice'+newItemNo})
+};
+
+
+$scope.ukloniRadnjaISankcija = function($event){
+	$event.preventDefault();
+	$event.stopPropagation();
+	var lastItem = $scope.listaradnjiISankcija.length-1;
+	$scope.listaradnjiISankcija.splice(lastItem);
+};
+
+//-------------------------------------------------------------------------------------------------
+
+
+//----------------Dodavanje normi-------------------------------------------------------------------
+$scope.listaNormi = [{id: 'norma'}];
+
+$scope.dodajNormu = function($event){
+	$event.preventDefault();
+	$event.stopPropagation();
+	var newItemNo = $scope.listaNormi.length+1;
+	$scope.listaNormi.push({'id':'choice'+newItemNo})
+};
+
+$scope.ukloniNormu = function($event){
+	$event.preventDefault();
+	$event.stopPropagation();
+	var lastItem = $scope.listaNormi.length-1;
+	$scope.listaNormi.splice(lastItem);
+};
+
+//-------------------------------------------------------------------------------------------------
+//----------------Dodavanje kaznenih odredbi-------------------------------------------------------
+$scope.listaKaznenihOdredba = [{id: 'odredba'}];
+
+$scope.dodajKaznenuOdredbu = function($event){
+	$event.preventDefault();
+	$event.stopPropagation();
+	var newItemNo = $scope.listaKaznenihOdredba.length+1;
+	$scope.listaKaznenihOdredba.push({'id':'choice'+newItemNo})
+};
+
+$scope.ukloniKaznenuOdredbu = function($event){
+	$event.preventDefault();
+	$event.stopPropagation();
+	var lastItem = $scope.listaKaznenihOdredba.length-1;
+	$scope.listaKaznenihOdredba.splice(lastItem);
+};
+
+
+
+//-------------------------------------------------------------------------------------------------
 	
 	$scope.save = function () {
 		

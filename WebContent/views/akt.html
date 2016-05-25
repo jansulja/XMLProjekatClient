@@ -25,9 +25,7 @@
         </fieldset>
         <button class="addfields" ng-click="dodajDefiniciju($event)">Dodaj definiciju</button>
 <!--/////////////////////////////////////////////////////////////////////////////////////////////////////-->    
- 
-    
- 
+
     <label>Glavni deo:</label> <br>
     <div class="form-group">
       	<label>Prava i obaveze:</label>
@@ -54,22 +52,58 @@
       <button class="addfields" ng-click="dodajOvlascenje($event)">Dodaj ovlascenje</button><br>
 <!--/////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
+
+<!--/////////////Kaynena odredba////////////////////////////////////////////////////////////////////////-->
+<button class="addfields" ng-click="dodajKaznenuOdredbu($event)">Dodaj kaznenu odredbu</button>
+  <fieldset  data-ng-repeat="kaznenaOdredba in listaKaznenihOdredba">
  	<label>Kazena odredba:</label><br>
+<!--/////////////Norma////////////////////////////////////////////////////////////////////////-->
+
+  <fieldset data-ng-repeat="norma in listaNormi">
     <div class="form-group">
       	<label>Norma:</label>
-      	<input class="form-control" ng-model="Kaznena_odredba.Norma"></input>
+      	<input class="form-control" type="text" ng-model="Kaznena_odredba.Norma" name="" placeholder="Unesi normu"></input>
+        <button class="remove" ng-show="$last" ng-click="ukloniNormu($event)">-</button>
     </div>
+</fieldset>
+<button class="addfields" ng-click="dodajNormu($event)">Dodaj normu</button><br>
+
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////-->      
+
+<!--////////////////// Dodavanje radnjaISankcija /////////////////////////////////////////////////////////////-->
+
+<fieldset  data-ng-repeat="radnjaISankcija in listaradnjiISankcija">
 <label>Kaznjiva radnja i sankcija:</label><br> 	
     <div class="form-group">   	
       	<label>Kaznjiva radnja:</label>
-      	<input class="form-control" ng-model="Kaznjiva_radnja_i_sankcija.Kaznjiva_radnja"></input>
+      	<input class="form-control" type="text" ng-model="Kaznjiva_radnja_i_sankcija.Kaznjiva_radnja" name="" placeholder="Unesi kaznjivu radnju"></input>
     </div>  	
     <div class="form-group">   	
       	<label>Sankcija:</label>
-      	<input class="form-control" ng-model="Kaznjiva_radnja_i_sankcija.Sankcija"></input>
+      	<input class="form-control" type="text" ng-model="Kaznjiva_radnja_i_sankcija.Sankcija" name="" placeholder="Unesi sankciju"></input>
+     <button class="remove" ng-show="$last" ng-click="ukloniRadnjaISankcija($event)">-</button>
     </div>
-   
+   </fieldset>
+   <button class="addfields" ng-click="dodajRadnjaISankcija($event)">Dodaj kaznjivu radnju i sankciju</button><br>
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
+
+
+    <div class="form-group">
+    <label>Biće dela:</label>
+        <input class="form-control" ng-model="Kaznena_odredba.BiceDela"></input>
+    </div>
+
+    <div class="form-group">
+    <label>Subjekt odgovornosti:</label>
+        <input class="form-control" ng-model="Kaznena_odredba.SubjektOdgovornosti"></input>
+    </div>
+
+    <button class="remove" ng-show="$last" ng-click="ukloniKaznenuOdredbu($event)">Ukloni kaznenu odredbu</button>
+    </fieldset>
+    
+
+<!--////////kraj kaznene////////////////////////////////////////////////////////////////////////////////////-->
     <label>Zavrsni deo:</label>
     <div class="form-group">
 	      <label>Prelazne odredbe:</label>
