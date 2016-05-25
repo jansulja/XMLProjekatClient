@@ -17,5 +17,18 @@ angular.module('akti', ['resource.akt','angular-md5'])
 			$location.path('/akt/new');
  		}
  	}
+
+ 	$scope.setSelected = function (akt) {
+ 		
+ 		$scope.selectedAkt = akt;
+
+ 	}
+
 	
+ 	$scope.setSelectedOdredba = function (odredba) {
+ 		
+ 		$scope.selectedOdredba = odredba;
+
+ 	}
+
  });
