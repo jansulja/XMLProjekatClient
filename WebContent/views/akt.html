@@ -2,35 +2,98 @@
 
   <form  novalidate="novalidate" ng-submit="save()">
     
+
     <label>Akt:</label>
-    
     <div class="form-group">
-     	<label >Naziv akta:</label>
-        <input  class="form-control" ng-model="Akt.naziv" required required-err-type="requiredMy"/>
+        <label >Naziv akta:</label>
+        <input  class="form-control" ng-model="akt.naziv" required required-err-type="requiredMy"/>
     </div>
    
     <label>Uvodni Deo:</label>
     <div class="form-group">
       	<label>Predmet uredjivanja:</label>
-     	<input class="form-control" ng-model="Uvodni_deo.Predmet_uredjivanja"></input>
+     	  <input class="form-control" ng-model="Uvodni_deo.Predmet_uredjivanja"></input>
     </div>
-     
-<!--////////////////// Dodavanje definicija /////////////////////////////////////////////////////////////-->
-   <label>Definicije:</label>
-  	    <fieldset  data-ng-repeat="definicija in listaDefinicija">
-  	    <div class="form-group">
-        <input class="form-control" type="text" ng-model="Uvodni_deo.Definicija" name="" placeholder="Unesi definiciju">
-        <button class="remove" ng-show="$last" ng-click="ukloniDefiniciju($event)">-</button>
-        </div>
-        </fieldset>
-        <button class="addfields" ng-click="dodajDefiniciju($event)">Dodaj definiciju</button>
+      
+    
+<!--////////////////// Dodavanje definicija /////////////////////////////////////////////////////////////-->    
+    <div class="form-group">
+        <label>Definicije:</label>
+        <table class="table table-striped table-bordered table-condensed table-hover">
+            <tr>
+                 <th>Tekst_definicije</th>
+            </tr>
+            <tr ng-repeat="definicija in akt.definicije" ng-click="openModal(definicija)">
+                <td>{{definicija.Tekst_definicije}}</td>
+            </tr>
+        </table>      
+    </div>
+    <div class="form-group">
+      <button class="btn btn-default" ng-click="openModal($event)">Dodaj definiciju</button>
+    </div>
 <!--/////////////////////////////////////////////////////////////////////////////////////////////////////-->    
+
+<div class="form-goroup">
+    <label>Ovlascenja</label>
+    <table class="table table-striped table-bordered table-condensed table-hover">
+        <tr>
+            <th>Ovlascenje</th>
+            <th>Obim</th>
+            <th>Period vazenja</th>
+        </tr>
+        <tr ng-repeat="ovlascenje in akt.ovlascenja" ng-click="openModalOvlascenje(ovlascenje)">
+            <td>{{ovlascenje.ime}}</td>
+            <td>{{ovlascenje.obim}}</td>
+            <td>{{ovlascenje.periodVazenja}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-default" ng-click="openModalOvlascenje()">Dodaj ovlascenje</button>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////-->   
+
+
 
     <label>Glavni deo:</label> <br>
     <div class="form-group">
       	<label>Prava i obaveze:</label>
       	<input class="form-control" ng-model="Glavni_deo.Prava_i_obaveze"></input>
     </div>
+
+
+
+
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////-->   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--////////////////// Dodavanje ovlascenja /////////////////////////////////////////////////////////////-->
 	<fieldset  data-ng-repeat="ovlascenje in listaOvlascenja">
@@ -135,7 +198,7 @@
         <button class="btn" ng-click="delete()">Obriši</button>
     </div>
     
-    </form>
+  </form>
   
   
   

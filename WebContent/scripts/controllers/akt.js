@@ -2,9 +2,13 @@
 
 angular.module('akt', [
 	'resource.akt',
+	'definicija',
+	'resource.definicija',
+	'ovlascenje',
+	'resource.ovlascenje',
 	'ui.bootstrap'])
 
-.controller('aktCtrl', function (Akt,$rootScope, $scope, $routeParams, $log, $location, $q, $http) {
+.controller('aktCtrl', function (Akt,$rootScope, $scope, $routeParams, $log, $location, $q, $http, $modal) {
 	
 	//---------------Osnovno nesto---------------------------------------------------------
 	if($routeParams.aktId!='new'){
@@ -19,6 +23,8 @@ angular.module('akt', [
 	
 	else{
 		$scope.akt = new Akt();
+		$scope.akt.definicije = [];
+		$scope.akt.ovlascenja = [];
 		
 	}
 
@@ -33,25 +39,89 @@ angular.module('akt', [
 	};
 	//-------------------------------------------------------------------------------------------------
 	
-
 //----------------Dodavanje i brisanje definicija--------------------------------------------------
-  //promenljiva sa svim definicijama
-  $scope.listaDefinicija = [{id: 'choice1'}];
-  
-  $scope.dodajDefiniciju = function($event) {
-  	$event.preventDefault();
-	$event.stopPropagation();
-    var newItemNo = $scope.listaDefinicija.length+1;
-    $scope.listaDefinicija.push({'id':'choice'+newItemNo});
-  };
-    
-  $scope.ukloniDefiniciju = function($event) {
-  	$event.preventDefault();
-	$event.stopPropagation();
-    var lastItem = $scope.listaDefinicija.length-1;
-    $scope.listaDefinicija.splice(lastItem);
-  };
+
+$scope.openModal = function (definicija, size) {
+
+	var modalInstance = $modal.open({
+		templateUrl: 'views/definicija.html',
+		controller: 'definicijaCtrl',
+		size: size,
+		resolve: {
+			definicija: function(){
+				return definicija;
+			}
+		}
+	});
+	modalInstance.result.then(function (data){
+		var definicija = data.definicija;
+		//ako stavka fakture nema id i ako je akcija 'save' znaci da je nova i dodaje se u listu. ako ima, svakako se manja u listi
+		if(!definicija.id && data.action === 'save'){
+			$scope.akt.definicije.push(definicija);
+		}
+		//ako stavka treba da se obrise izbaci se iz niza
+		if(data.action === 'delete'){
+			var index = $scope.akt.definicije.indexOf(
+				definicija);
+			$scope.akt.definicije.splice(index, 1);
+
+		}
+	}, function () {
+		$log.info('Modal dismissed at: ' + new Date());
+	});
+};
+
 //-------------------------------------------------------------------------------------------------
+//Dodavanje ovlascenja
+$scope.openModalOvlascenje = function (ovlascenje, size) {
+
+	var modalInstance = $modal.open({
+		templateUrl: 'views/ovlascenje.html',
+		controller: 'ovlascenjeCtrl',
+		size: size,
+		resolve: {
+			ovlascenje: function(){
+				return ovlascenje;
+			}
+		}
+	});
+	modalInstance.result.then(function (data){
+		var ovlascenje = data.ovlascenje;
+		//ako stavka fakture nema id i ako je akcija 'save' znaci da je nova i dodaje se u listu. ako ima, svakako se manja u listi
+		if(!ovlascenje.id && data.action === 'save'){
+			$scope.akt.ovlascenja.push(ovlascenje);
+		}
+		//ako stavka treba da se obrise izbaci se iz niza
+		if(data.action === 'delete'){
+			var index = $scope.akt.ovlascenja.indexOf(
+				ovlascenje);
+			$scope.akt.ovlascenja.splice(index, 1);
+
+		}
+	}, function () {
+		$log.info('Modal dismissed at: ' + new Date());
+	});
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //----------------Dodavanje i brisanje ovlascenja--------------------------------------------------
 $scope.listaOvlascenja = [{id: 'ovlascenje1'}];
