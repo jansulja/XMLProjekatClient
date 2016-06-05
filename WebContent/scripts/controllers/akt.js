@@ -19,7 +19,8 @@ angular.module('akt', [
 	
 	else{
 		$scope.akt = new Akt();
-		
+		$scope.akt.Uvodni_deo = {};
+		$scope.akt.Uvodni_deo.Definicija = [];
 	}
 
 	//-------------------------------------------------------------------------------------------------
@@ -36,13 +37,13 @@ angular.module('akt', [
 
 //----------------Dodavanje i brisanje definicija--------------------------------------------------
   //promenljiva sa svim definicijama
-  $scope.listaDefinicija = [{id: 'choice1'}];
+  // $scope.listaDefinicija = [{id: 'choice1'}];
   
   $scope.dodajDefiniciju = function($event) {
   	$event.preventDefault();
 	$event.stopPropagation();
-    var newItemNo = $scope.listaDefinicija.length+1;
-    $scope.listaDefinicija.push({'id':'choice'+newItemNo});
+    //var newItemNo = $scope.akt.Uvodni_deo.Definicija.length+1;
+    $scope.akt.Uvodni_deo.Definicija.push('');
   };
     
   $scope.ukloniDefiniciju = function($event) {

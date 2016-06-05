@@ -27,7 +27,8 @@
   'jcs-autoValidate',
   'resource.akt',
   'akt',
-  'akti'
+  'akti',
+  'akt-new'
   ])
  .config(function ($routeProvider) {
   $routeProvider
@@ -70,6 +71,10 @@
   
   .when('/unauthorised', {
     templateUrl: 'views/unauthorised.html',
+  })
+  .when('/akt-new', {
+    templateUrl: 'views/akt-new.html',
+    controller: 'akt-newCtrl'
   })
   .otherwise({
     redirectTo: '/'
@@ -134,7 +139,7 @@
  .controller('appCtrl', function($scope, User, $log, $location, $modal,$rootScope,$http){
   $scope.logout = function () {
       $http({
-        url: "http://localhost:8089/xws/api/gradjanin/logout",
+        url: "https://localhost:8443/xws/api/gradjanin/logout",
         method: "GET"
       }).success(function () {
         $rootScope.current = { ime: "", prezime: "", role: ""};

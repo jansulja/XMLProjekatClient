@@ -17,9 +17,9 @@
      
 <!--////////////////// Dodavanje definicija /////////////////////////////////////////////////////////////-->
    <label>Definicije:</label>
-  	    <fieldset  data-ng-repeat="definicija in listaDefinicija">
+  	    <fieldset  data-ng-repeat="definicija in akt.Uvodni_deo.Definicija track by $index">
   	    <div class="form-group">
-        <input class="form-control" type="text" ng-model="Uvodni_deo.Definicija" name="" placeholder="Unesi definiciju">
+        <input class="form-control" type="text" ng-model="definicija" name="" placeholder="Unesi definiciju">
         <button class="remove" ng-show="$last" ng-click="ukloniDefiniciju($event)">-</button>
         </div>
         </fieldset>

@@ -82,7 +82,7 @@ angular.module('gradjanin', [
 		var deferred = $q.defer();
 			//user.password = md5.createHash(user.password);
 		$http({
-			url: "http://localhost:8089/xws/api/gradjanin/login", 
+			url: "https://localhost:8443/xws/api/gradjanin/login", 
 			method: "POST",
 			data: $scope.gradjanin
 		}).success(function (data) {
