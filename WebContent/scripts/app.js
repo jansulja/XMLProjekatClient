@@ -26,7 +26,6 @@
   'gradjanin',
   'jcs-autoValidate',
   'resource.akt',
-  'akt',
   'akti',
   'akt-new'
   ])
