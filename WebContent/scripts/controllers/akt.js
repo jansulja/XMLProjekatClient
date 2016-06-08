@@ -28,12 +28,11 @@ angular.module('akt', [
 	
 	else{
 		$scope.akt = new Akt();
-		$scope.akt.delovi = [];
-		$scope.akt.glave = [];
-		$scope.akt.odeljci = [];
 
-		//$scope.akt.delovi.glave.odeljci
-		//$scope.delovi.odeljci
+
+		$scope.akt.Uvodni_deo = {};
+		$scope.akt.Uvodni_deo.Definicija = [];
+
 
 	}
 
@@ -74,6 +73,26 @@ $scope.hideRetry = function () {
 
 $scope.openModal = function (deo, size) {
 
+  //promenljiva sa svim definicijama
+  // $scope.listaDefinicija = [{id: 'choice1'}];
+  
+  $scope.dodajDefiniciju = function($event) {
+  	$event.preventDefault();
+	$event.stopPropagation();
+    //var newItemNo = $scope.akt.Uvodni_deo.Definicija.length+1;
+    $scope.akt.Uvodni_deo.Definicija.push('');
+  };
+    
+  $scope.ukloniDefiniciju = function($event) {
+  	$event.preventDefault();
+	$event.stopPropagation();
+    var lastItem = $scope.listaDefinicija.length-1;
+    $scope.listaDefinicija.splice(lastItem);
+  };
+
+
+$scope.openModal = function (definicija, size) {
+
 	var modalInstance = $modal.open({
 		templateUrl: 'views/deo.html',
 		controller: 'deoCtrl',
@@ -101,6 +120,7 @@ $scope.openModal = function (deo, size) {
 		$log.info('Modal dismissed at: ' + new Date());
 	});
 };
+
 
 //-------------------------------------------------------------------------------------------------
 //Dodavanje glave
