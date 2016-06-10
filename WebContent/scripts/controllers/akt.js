@@ -2,14 +2,19 @@
 
 angular.module('akt', [
 	'resource.akt',
-	'definicija',
-	'resource.definicija',
-	'ovlascenje',
-	'resource.ovlascenje',
+	'deo',
+	'resource.deo',
+	'glava',
+	'resource.glava',
+	'odeljak',
+	'resource.odeljak',
 	'ui.bootstrap'])
 
 .controller('aktCtrl', function (Akt,$rootScope, $scope, $routeParams, $log, $location, $q, $http, $modal) {
 	
+	
+	
+
 	//---------------Osnovno nesto---------------------------------------------------------
 	if($routeParams.aktId!='new'){
 		var aktId = $routeParams.aktId;
@@ -24,13 +29,37 @@ angular.module('akt', [
 	else{
 		$scope.akt = new Akt();
 
+
 		$scope.akt.Uvodni_deo = {};
 		$scope.akt.Uvodni_deo.Definicija = [];
+
 
 	}
 
 	//-------------------------------------------------------------------------------------------------
+$scope.hideDeoTabela = function () {
+    if($scope.akt.delovi.length === 0)
 
+    	return true;
+    else
+    	return false;
+};
+
+$scope.hideOdeljak = function () {
+    if($scope.akt.glave.length === 0)
+
+    	return true;
+    else
+    	return false;
+};
+
+$scope.hideRetry = function () {
+    if($scope.akt.delovi.length === 0)
+
+    	return true;
+    else
+    	return false;
+};
 
 	//--------Datepicker funkcija----------------------------------------------------------------------
 	$scope.openDatepicker = function($event, opened) {
@@ -40,7 +69,9 @@ angular.module('akt', [
 	};
 	//-------------------------------------------------------------------------------------------------
 	
-//----------------Dodavanje i brisanje definicija--------------------------------------------------
+//----------------Dodavanje i brisanje deo--------------------------------------------------
+
+$scope.openModal = function (deo, size) {
 
   //promenljiva sa svim definicijama
   // $scope.listaDefinicija = [{id: 'choice1'}];
@@ -63,26 +94,26 @@ angular.module('akt', [
 $scope.openModal = function (definicija, size) {
 
 	var modalInstance = $modal.open({
-		templateUrl: 'views/definicija.html',
-		controller: 'definicijaCtrl',
+		templateUrl: 'views/deo.html',
+		controller: 'deoCtrl',
 		size: size,
 		resolve: {
-			definicija: function(){
-				return definicija;
+			deo: function(){
+				return deo;
 			}
 		}
 	});
 	modalInstance.result.then(function (data){
-		var definicija = data.definicija;
+		var deo = data.deo;
 		//ako stavka fakture nema id i ako je akcija 'save' znaci da je nova i dodaje se u listu. ako ima, svakako se manja u listi
-		if(!definicija.id && data.action === 'save'){
-			$scope.akt.definicije.push(definicija);
+		if(!deo.id && data.action === 'save'){
+			$scope.akt.delovi.push(deo);
 		}
 		//ako stavka treba da se obrise izbaci se iz niza
 		if(data.action === 'delete'){
-			var index = $scope.akt.definicije.indexOf(
-				definicija);
-			$scope.akt.definicije.splice(index, 1);
+			var index = $scope.akt.delovi.indexOf(
+				deo);
+			$scope.akt.delovi.splice(index, 1);
 
 		}
 	}, function () {
@@ -92,30 +123,30 @@ $scope.openModal = function (definicija, size) {
 
 
 //-------------------------------------------------------------------------------------------------
-//Dodavanje ovlascenja
-$scope.openModalOvlascenje = function (ovlascenje, size) {
+//Dodavanje glave
+$scope.openModalGlava = function (glava, size) {
 
 	var modalInstance = $modal.open({
-		templateUrl: 'views/ovlascenje.html',
-		controller: 'ovlascenjeCtrl',
+		templateUrl: 'views/glava.html',
+		controller: 'glavaCtrl',
 		size: size,
 		resolve: {
-			ovlascenje: function(){
-				return ovlascenje;
+			glava: function(){
+				return glava;
 			}
 		}
 	});
 	modalInstance.result.then(function (data){
-		var ovlascenje = data.ovlascenje;
+		var glava = data.glava;
 		//ako stavka fakture nema id i ako je akcija 'save' znaci da je nova i dodaje se u listu. ako ima, svakako se manja u listi
-		if(!ovlascenje.id && data.action === 'save'){
-			$scope.akt.ovlascenja.push(ovlascenje);
+		if(!glava.id && data.action === 'save'){
+			$scope.akt.glave.push(glava);
 		}
 		//ako stavka treba da se obrise izbaci se iz niza
 		if(data.action === 'delete'){
-			var index = $scope.akt.ovlascenja.indexOf(
-				ovlascenje);
-			$scope.akt.ovlascenja.splice(index, 1);
+			var index = $scope.akt.glave.indexOf(
+				glava);
+			$scope.akt.glave.splice(index, 1);
 
 		}
 	}, function () {
@@ -123,41 +154,59 @@ $scope.openModalOvlascenje = function (ovlascenje, size) {
 	});
 };
 
+//Dodavanje odeljka
 
+$scope.openModalOdeljak = function (odeljak, size){
+	var modalInstance = $modal.open({
+		templateUrl: 'views/odeljak.html',
+		controller: 'odeljakCtrl',
+		size: size,
+		resolve: {
+			odeljak: function(){
+				return odeljak;
+			}
+		}
+	});
 
+	modalInstance.result.then(function(data){
+		var odeljak = data.odeljak;
+		if(!odeljak.id && data.action === 'save'){
+			$scope.akt.odeljci.push(odeljak);
+		}
 
+		if(data.action === 'delete'){
+			var index = $scope.akt.odeljci.indexOf(odeljak);
+			$scope.akt.odeljci.splice(index, 1);
+		}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//----------------Dodavanje i brisanje ovlascenja--------------------------------------------------
-$scope.listaOvlascenja = [{id: 'ovlascenje1'}];
-
-$scope.dodajOvlascenje = function($event){
-	$event.preventDefault();
-	$event.stopPropagation();
-	var newItemNo = $scope.listaOvlascenja.length+1;
-	$scope.listaOvlascenja.push({'id':'choice'+newItemNo})
+	}, function(){
+		$log.info('Modal dismissed at: ' + new Date());
+	});
 };
 
-$scope.ukloniOvlascenje = function($event){
+
+
+
+///////////////////
+
+
+
+
+//----------------Dodavanje i brisanje glave--------------------------------------------------
+$scope.listaglave = [{id: 'glava1'}];
+
+$scope.dodajglava = function($event){
 	$event.preventDefault();
 	$event.stopPropagation();
-	var lastItem = $scope.listaOvlascenja.length-1;
-	$scope.listaOvlascenja.splice(lastItem);
+	var newItemNo = $scope.listaglave.length+1;
+	$scope.listaglave.push({'id':'choice'+newItemNo})
+};
+
+$scope.ukloniglava = function($event){
+	$event.preventDefault();
+	$event.stopPropagation();
+	var lastItem = $scope.listaglave.length-1;
+	$scope.listaglave.splice(lastItem);
 };
 
 //-------------------------------------------------------------------------------------------------
