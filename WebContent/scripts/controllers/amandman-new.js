@@ -1,19 +1,30 @@
 'use strict';
 
-angular.module('akt-new',[])
+angular.module('amandman-new',[])
 
-.controller('akt-newCtrl', function($scope,$q,$http){
+.controller('amandman-newCtrl', function($scope,$q,$http,$location,$rootScope){
 
 		
-		$scope.test = {a:'asd'};
-		$scope.dodajAkt = function(){
+
+		$scope.authenticate = function(){
+
+			if($rootScope.current.ime == ""){
+				$location.path('login');
+				return false;
+			}else{
+
+				return true;
+			}
+		}
+
+		$scope.predloziAmandman = function(){
 
 			$scope.xmlString = $($scope.root).xmlEditor("xml2Str");
 
 			var deferred = $q.defer();
 			
 			$http({
-				url: "https://localhost:8443/xws/api/akt/new", 
+				url: "https://localhost:8443/xws/api/amandman/new", 
 				method: "POST",
 				data: $scope.xmlString,
 				headers: { "Content-Type": 'application/xml' }
@@ -31,11 +42,13 @@ angular.module('akt-new',[])
 		}
 })
 
-.directive("rootElementAkt", function() {
+.directive("rootElementAmandman", ['$location', function() {
     return {
         link: function(scope, elem, attrs) {
         		
-        		var extractor = new Xsd2Json("akt.xsd", {"schemaURI":"schema/", "rootElement": "akt"});
+        	if(scope.authenticate()){
+
+        		var extractor = new Xsd2Json("amandman.xsd", {"schemaURI":"schema/", "rootElement": "amandman"});
             	
 				$(elem).xmlEditor({
 					schema : extractor.getSchema(),
@@ -45,12 +58,12 @@ angular.module('akt-new',[])
 				scope.root = elem;
 				
 				
-
+			}
                 
            		
 
            
         }
     };
-});
+}]);
 
