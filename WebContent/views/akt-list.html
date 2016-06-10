@@ -1,11 +1,18 @@
 <div>
 	<table class="table table-striped table-bordered table-condensed table-hover">
 		<tr>
-			<th>akt name</th>
+				<th>akt name</th>
+				<th>Opcija</th>
 
 		</tr>
-		<tr ng-repeat="akt in akts">
+		<tr ng-repeat="akt in akts track by $index">
 			<td>{{akt}}</td>
+			<td>
+				<button type="button" class="btn btn-default btn-lg" ng-click="obrisiAkt(akt)">
+		  		<span class="glyphicon glyphicon-remove" 		aria-hidden="true"></span> Obrisi
+				</button>
+
+			</td>
 		</tr>
 	</table>
 	

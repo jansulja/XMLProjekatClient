@@ -28,11 +28,11 @@
   'jcs-autoValidate',
   'akti',
   'akt-new',
-<<<<<<< HEAD
-  'akt-list'
-=======
+
+  'akt-list',
+
   'amandman-new'
->>>>>>> b116f7c0aa6ca33bdd7cf8f7033028155eaf80be
+
   ])
  .config(function ($routeProvider) {
   $routeProvider
@@ -62,16 +62,13 @@
     templateUrl: 'views/gradjanin.html',
     controller: 'gradjaninCtrl'
   })
-<<<<<<< HEAD
 
-=======
   .when('/akt-list', {
 
 	  templateUrl: 'views/akt-list.html',
 	  controller: 'aktListCtrl'
 
   })
->>>>>>> b116f7c0aa6ca33bdd7cf8f7033028155eaf80be
   .when('/akt/:aktId', {
 	  templateUrl: 'views/akt.html',
 	  controller: 'aktCtrl'
