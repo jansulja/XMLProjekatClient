@@ -16,6 +16,7 @@
   'ngRoute',
   'ngSanitize',
   'ngTouch',
+  'angularCSS',
   'main',
   'about',
   'invoices',
@@ -27,7 +28,8 @@
   'jcs-autoValidate',
   'resource.akt',
   'akti',
-  'akt-new'
+  'akt-new',
+  'amandman-new'
   ])
  .config(function ($routeProvider) {
   $routeProvider
@@ -48,32 +50,38 @@
     controller: 'gradjaninCtrl'
   })
   .when('/gradjanin-list', {
-	  
+
 	  templateUrl: 'views/gradjanin-list.html',
 	  controller: 'gradjaninListCtrl'
-	  
+
   })
   .when('/gradjanin/:gradjaninId', {
     templateUrl: 'views/gradjanin.html',
     controller: 'gradjaninCtrl'
   })
   .when('/akt-list', {
-	  
+
 	  templateUrl: 'views/akt-list.html',
 	  controller: 'aktListCtrl'
-	  
+
   })
   .when('/akt/:aktId', {
 	  templateUrl: 'views/akt.html',
 	  controller: 'aktCtrl'
   })
-  
+
   .when('/unauthorised', {
-    templateUrl: 'views/unauthorised.html',
+    templateUrl: 'views/unauthorised.html'
   })
   .when('/akt-new', {
     templateUrl: 'views/akt-new.html',
-    controller: 'akt-newCtrl'
+    controller: 'akt-newCtrl',
+    css: ['bower_components/jquery.xmleditor/demo/stylesheets/reset.css','bower_components/jquery.xmleditor/demo/stylesheets/demo.css']
+  })
+  .when('/amandman-new', {
+    templateUrl: 'views/amandman-new.html',
+    controller: 'amandman-newCtrl',
+    css: ['bower_components/jquery.xmleditor/demo/stylesheets/reset.css','bower_components/jquery.xmleditor/demo/stylesheets/demo.css']
   })
   .otherwise({
     redirectTo: '/'
@@ -89,6 +97,12 @@
       return response || $q.when(response);
     },
     responseError: function(rejection, x, y) {//ako smo dobili gresku
+
+      if(rejection.status === 403){
+        $location.path('/unauthorised');
+      }
+
+
       if (rejection.status === 401 ) {//ako je greska 401 (korisnik nije prijavljen na sistem)
         console.log("Response Error 401",rejection);
         if($rootScope.current.ime == ""){
@@ -114,7 +128,7 @@
  //uz gresku sa servera pristigne tekstualni opis greske
  //"Not logged in"
  //ovaj opis greske ne moze da se konvertuje u JSON (pogeldaj slajd $resource - napisano sitnim slovima)
- //zbog toga moramo da izmenimo transformResponce 
+ //zbog toga moramo da izmenimo transformResponce
  .run(['$http','$location','$rootScope',//to radimo u run, jer se izvrsava pre svega ostalog
   function($http, $location, $rootScope) {
     var parseResponse = function(response, headers, status) {//ova funkcija proba da konvertuje pristigli odgovor u JSON
@@ -145,7 +159,7 @@
         $location.path("login");
       });
     }
-  
+
   $scope.isLoginPage = function () {
     return $location.path() === '/login';
   };
@@ -160,7 +174,7 @@
      $scope.role = data;
    });*/
 
-  
+
   $scope.about = function (size) {
     var modalInstance = $modal.open({
       templateUrl: 'views/about.html',
@@ -171,10 +185,39 @@
 
 
 
-    
-  
 
-})
+
+
+}).directive('head', ['$rootScope','$compile',
+    function($rootScope, $compile){
+        return {
+            restrict: 'E',
+            link: function(scope, elem){
+                var html = '<link rel="stylesheet" ng-repeat="(routeCtrl, cssUrl) in routeStyles" ng-href="{{cssUrl}}" />';
+                elem.append($compile(html)(scope));
+                scope.routeStyles = {};
+                $rootScope.$on('$routeChangeStart', function (e, next, current) {
+                    if(current && current.$$route && current.$$route.css){
+                        if(!angular.isArray(current.$$route.css)){
+                            current.$$route.css = [current.$$route.css];
+                        }
+                        angular.forEach(current.$$route.css, function(sheet){
+                            delete scope.routeStyles[sheet];
+                        });
+                    }
+                    if(next && next.$$route && next.$$route.css){
+                        if(!angular.isArray(next.$$route.css)){
+                            next.$$route.css = [next.$$route.css];
+                        }
+                        angular.forEach(next.$$route.css, function(sheet){
+                            scope.routeStyles[sheet] = sheet;
+                        });
+                    }
+                });
+            }
+        };
+    }
+])
 
 
 .run([
@@ -190,7 +233,7 @@
         // otherwise the current default culture is returned.
         defaultErrorMessageResolver.getErrorMessages().then(function (errorMessages) {
           errorMessages['requiredMy'] = 'Obavezno polje!';
-          
+
         });
     }
 ]);

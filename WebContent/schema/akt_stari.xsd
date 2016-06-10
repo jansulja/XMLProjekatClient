@@ -12,8 +12,6 @@
                 </xs:sequence>
             </xs:choice>
             <xs:attribute default="PREDLOZEN" name="status" type="akt:Status"/>
-            <xs:attribute name="naziv" type="xs:string"/>
-            <xs:attribute name="redni_broj" type="xs:int"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="Pododeljak">
@@ -82,6 +80,7 @@
         <xs:sequence>
             <xs:element minOccurs="0" name="Naziv" type="xs:string"/>
             <xs:element maxOccurs="unbounded" name="Stav" type="akt:Stav"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="Amandman" type="akt:Amandman"/>
         </xs:sequence>
         <xs:attribute name="redni_broj" type="xs:positiveInteger"/>
     </xs:complexType>
@@ -91,6 +90,21 @@
             <xs:enumeration value="ODBIJEN"/>
             <xs:enumeration value="PREDLOZEN"/>
             <xs:enumeration value="U_PROCESU"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="Amandman">
+        <xs:sequence>
+            <xs:element name="Naziv" type="akt:NazivAmandmana"/>
+            <xs:element name="Clan" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="NazivAmandmana">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Propis o izmeni"/>
+            <xs:enumeration value="Propis o dopuni"/>
+            <xs:enumeration value="Propis o izmeni i dopunama"/>
+            <xs:enumeration value="Propis o izmenama i dopuni"/>
+            <xs:enumeration value="Propis o izmenama i dopunama"/>
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>
