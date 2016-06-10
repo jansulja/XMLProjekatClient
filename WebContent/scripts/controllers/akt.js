@@ -11,21 +11,21 @@ angular.module('akt', [
 	'ui.bootstrap'])
 
 .controller('aktCtrl', function (Akt,$rootScope, $scope, $routeParams, $log, $location, $q, $http, $modal) {
-	
-	
-	
+
+
+
 
 	//---------------Osnovno nesto---------------------------------------------------------
 	if($routeParams.aktId!='new'){
 		var aktId = $routeParams.aktId;
-		
-		
+
+
 		Akt.get({'aktId':aktId}).$promise.then(function (data) {
 			$scope.akt = data;
-			
+
 		});
 	}
-	
+
 	else{
 		$scope.akt = new Akt();
 
@@ -68,28 +68,28 @@ $scope.hideRetry = function () {
 		$scope[opened] = true;
 	};
 	//-------------------------------------------------------------------------------------------------
-	
+
 //----------------Dodavanje i brisanje deo--------------------------------------------------
 
 $scope.openModal = function (deo, size) {
 
   //promenljiva sa svim definicijama
   // $scope.listaDefinicija = [{id: 'choice1'}];
-  
+
   $scope.dodajDefiniciju = function($event) {
   	$event.preventDefault();
 	$event.stopPropagation();
     //var newItemNo = $scope.akt.Uvodni_deo.Definicija.length+1;
     $scope.akt.Uvodni_deo.Definicija.push('');
   };
-    
+
   $scope.ukloniDefiniciju = function($event) {
   	$event.preventDefault();
 	$event.stopPropagation();
     var lastItem = $scope.listaDefinicija.length-1;
     $scope.listaDefinicija.splice(lastItem);
   };
-
+};
 
 $scope.openModal = function (definicija, size) {
 
@@ -271,14 +271,14 @@ $scope.ukloniKaznenuOdredbu = function($event){
 
 
 //-------------------------------------------------------------------------------------------------
-	
+
 	$scope.save = function () {
-		
-		
-		
+
+
+
 		if($scope.akt.id){
 			$log.info($scope.akt);
-			
+
 			$scope.akt.$update({aktId:$scope.akt.id},function () {
 				$location.path('/akt-list');
 			});
@@ -297,10 +297,10 @@ $scope.ukloniKaznenuOdredbu = function($event){
 				$location.path('/akt-list');
 			});
 		}
-	}
-	
+	};
 
-	
+
+
 
 	/*$scope.$watch( 'current',
 		function(newValue, oldValue){
@@ -312,16 +312,16 @@ $scope.ukloniKaznenuOdredbu = function($event){
 	);*/
 
 	/*$scope.triggerChangeWithApply = function () {
-		
+
 		console.log('First name being reset');
 		$scope.$apply(function(){
 			$scope.current = 'lll';
 			}
 		);
-		
+
 	};*/
 
-	
+
 
 
 
