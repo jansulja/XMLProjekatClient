@@ -25,9 +25,9 @@
   'gradjani',
   'gradjanin',
   'jcs-autoValidate',
-  'resource.akt',
   'akti',
-  'akt-new'
+  'akt-new',
+  'akt-list'
   ])
  .config(function ($routeProvider) {
   $routeProvider
@@ -57,12 +57,7 @@
     templateUrl: 'views/gradjanin.html',
     controller: 'gradjaninCtrl'
   })
-  .when('/akt-list', {
-	  
-	  templateUrl: 'views/akt-list.html',
-	  controller: 'aktListCtrl'
-	  
-  })
+
   .when('/akt/:aktId', {
 	  templateUrl: 'views/akt.html',
 	  controller: 'aktCtrl'
@@ -75,6 +70,11 @@
     templateUrl: 'views/akt-new.html',
     controller: 'akt-newCtrl'
   })
+  .when('/akt-list', {
+    templateUrl: 'views/akt-list.html',
+    controller: 'akt-listCtrl'
+  })
+
   .otherwise({
     redirectTo: '/'
   });
