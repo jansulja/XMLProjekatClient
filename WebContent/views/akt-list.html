@@ -1,136 +1,14 @@
-	<div>
+<div>
+	<table class="table table-striped table-bordered table-condensed table-hover">
+		<tr>
+			<th>akt name</th>
 
-		<h3>Akt</h3>
-
-		<div>
-		<button ng-if="isOdbornik()" type="button" class="btn btn-default btn-lg" ng-click="insertOrEditAkt()">
-		  	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Dodaj akt
-		</button>
-			
-		</div>
-
-		<table class="table table-striped table-bordered table-condensed table-hover">
-			<thead>
-				<tr class="ui-bar-a">
-					<th>Naziv</th>
-				</tr>
-			</thead>
-				<tbody>
-					<tr ng-repeat="akt in akti" ng-click="setSelected(akt)">
-
-						<td>{{akt.Naziv}}</td>
-						<!-- <td>{{akt.Uvodni_deo.naziv}}</td>
-						<td>{{akt.Uvodni_deo.Predmet_uredjivanja}}</td>
-						<td><spam ng-repeat="definicija in akt.Uvodni_deo.Definicija">{{definicija}}</spam></td> -->
-					</tr>
-				</tbody>
-			</table>
-			<div ng-if="selectedAkt">
-				<div>
-					<h3>Uvodni deo</h3>
-
-					<ul>
-						<li>Naziv Uvodnog dela: {{selectedAkt.Uvodni_deo.naziv}}</li>
-						<li>Predmet Uredjivanja: {{selectedAkt.Uvodni_deo.Predmet_uredjivanja}}</li>
-					</ul>
-				
-
-					<table class="table table-striped table-bordered table-condensed table-hover">
-						<thead>
-							<tr class="ui-bar-a">	
-								<th>Definicije</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="definicija in selectedAkt.Uvodni_deo.Definicija">
-
-								<td>{{definicija}}</td>
-							</tr>
-							</tbody>
-					</table>
-				</div>
-
-				<div>
-					<h3>Glavni deo</h3>
-
-					<ul>
-						<li>Prava i obaveze: {{selectedAkt.Glavni_deo.Prava_i_obaveze}}</li>
-						
-					</ul>
-					
-					<h5>Ovlascenja</h5>
-
-					<table class="table table-striped table-bordered table-condensed table-hover">
-						<thead>
-							<tr class="ui-bar-a">	
-							   <th>Ovlasceni organ</th>
-				               <th>Obim</th>
-				               <th>Period vazenja</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="ovlascenje in selectedAkt.Glavni_deo.Ovlascenje">
-								<td>{{ovlascenje.Ovlasceni_organ}}</td>
-								<td>{{ovlascenje.Obim}}</td>
-								<td>{{ovlascenje.Period_vazenja}}</td>
-							</tr>
-							</tbody>
-					</table>
-
-					<h5>Kaznene Odredbe</h5>
-
-					<table class="table table-striped table-bordered table-condensed table-hover">
-						<thead>
-							<tr class="ui-bar-a">	
-							   <th>Bice dela</th>
-				               <th>Subjekt odgovornosti</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="odredba in selectedAkt.Glavni_deo.Kaznena_odredba" ng-click="setSelectedOdredba(odredba)">
-								<td>{{odredba.Bice_dela}}</td>
-								<td>{{odredba.Subjekt_odgovornosti}}</td>
-								
-							</tr>
-							</tbody>
-					</table>
-						<div ng-if="selectedOdredba">
-							<h5>Norme</h5>
-							
-							<table class="table table-striped table-bordered table-condensed table-hover">
-								<thead>
-									<tr class="ui-bar-a">	
-										<th>Norma</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="norma in selectedOdredba.Norma">
-
-										<td>{{norma}}</td>
-									</tr>
-									</tbody>
-							</table>
-
-							<h5>Kaznjive radnje i sankcije</h5>
-
-							<table class="table table-striped table-bordered table-condensed table-hover">
-								<thead>
-									<tr class="ui-bar-a">	
-									   <th>Kaznjiva radnja</th>
-						               <th>Sankcija</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="kaznjiva_radnja in selectedOdredba.Kaznjiva_radnja_i_sankcija">
-										<td>{{kaznjiva_radnja.Kaznjiva_radnja}}</td>
-										<td>{{kaznjiva_radnja.Sankcija}}</td>
-										
-									</tr>
-									</tbody>
-							</table>
-						</div>
-					
-				</div>
-			</div>
+		</tr>
+		<tr ng-repeat="akt in akts">
+			<td>{{akt}}</td>
+		</tr>
+	</table>
+	
+		
 </div>
 
