@@ -3,10 +3,10 @@
 angular.module('akt-list',[])
 
 .controller('akt-listCtrl', function ($scope, $q, $http){
-		
+
 		$scope.Upit = {Naziv: "", ID: "", Status: "" , DatumPredlogaOd: "" , DatumPredlogaDo: "", DatumUsvajanja : "" , Predlagac: "", Text: ""};
 		$scope.names = ["USVOJEN", "ODBIJEN", "PREDLOZEN","U_PROCESU"];
-		
+
 		var deferred = $q.defer();
 		$scope.akts = [];
 
@@ -27,9 +27,9 @@ angular.module('akt-list',[])
 		  });
 		var promise = deferred.promise;
 		promise.then(function (data) {
-			
+
 			$scope.akts = data;
-			
+
 		});
 
 
@@ -54,9 +54,9 @@ angular.module('akt-list',[])
 
 $scope.searchAktove = function() {
 			var deferred = $q.defer();
-			
+
 			$http({
-				url: "https://localhost:8443/xws/api/akt/provera", 
+				url: "https://localhost:8443/xws/api/akt/search",
 				method: "POST",
 				data: $scope.Upit
 
@@ -74,11 +74,11 @@ $scope.searchAktove = function() {
 
 
 $scope.obrisiAkt = function (akt){
-     
+
 		var deferred = $q.defer();
 
 				$http({
-				url: "https://localhost:8443/xws/api/akt/delete", 
+				url: "https://localhost:8443/xws/api/akt/delete",
 				method: "POST",
 				data: akt
 			}).success(function (data) {
@@ -88,11 +88,11 @@ $scope.obrisiAkt = function (akt){
 			var promise = deferred.promise;
 			promise.then(function (data) {
 
-				
+
 			});
 
 }
-	
+
 
 
 });
