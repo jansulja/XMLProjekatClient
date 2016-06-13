@@ -4,7 +4,7 @@ angular.module('akt-list',[])
 
 .controller('akt-listCtrl', function ($scope, $q, $http){
 		
-		$scope.Upit = {Naziv: "", ID: "", Status: "" , DatumPredlogaOd: "" , DatumPredlogaDo: "", DatumUsvajanja : "" , Predlagac: ""};
+		$scope.Upit = {Naziv: "", ID: "", Status: "" , DatumPredlogaOd: "" , DatumPredlogaDo: "", DatumUsvajanja : "" , Predlagac: "", Text: ""};
 		$scope.names = ["USVOJEN", "ODBIJEN", "PREDLOZEN","U_PROCESU"];
 		
 		var deferred = $q.defer();
