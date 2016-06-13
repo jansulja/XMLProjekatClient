@@ -39,6 +39,7 @@ angular.module('akt-new',[])
             	
 				$(elem).xmlEditor({
 					schema : extractor.getSchema(),
+					enforceOccurs: true
 
 				});
 

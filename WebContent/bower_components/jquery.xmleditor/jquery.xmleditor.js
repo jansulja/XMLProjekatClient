@@ -581,6 +581,7 @@ $.widget( "xml.xmlEditor", {
 
 	addAttribute: function(xmlElement, attrDefinition, instigator) {
 
+	
 		// Synchronize xml document if there are unsynchronized changes in the text editor
 		if (this.xmlState.changesNotSynced()) {
 			try {
