@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://www.parlament.gov.rs/akt" xmlns:akt="http://www.parlament.gov.rs/akt">
+    targetNamespace="http://www.parlament.gov.rs/akt" xmlns="http://www.parlament.gov.rs/akt"
+    xmlns:pred="http://www.parlament.gov.rs/akt/predicate/">
     <xs:element name="Akt">
         <xs:complexType>
-            <xs:choice>
-                <xs:sequence>
-                    <xs:element name="Deo" type="akt:Deo" maxOccurs="unbounded" minOccurs="2"/>
-                </xs:sequence>
-                <xs:sequence>
-                    <xs:element name="Glava" type="akt:Glava" maxOccurs="unbounded" minOccurs="2"/>
-                </xs:sequence>
-            </xs:choice>
-            <xs:attribute default="PREDLOZEN" name="status" type="akt:Status"/>
-            <xs:attribute name="naziv" type="xs:string"/>
+            <xs:sequence>
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element name="Deo" type="Deo" maxOccurs="unbounded" minOccurs="2"/>
+                    </xs:sequence>
+                    <xs:sequence>
+                        <xs:element name="Glava" type="Glava" maxOccurs="unbounded" minOccurs="2"/>
+                    </xs:sequence>
+                </xs:choice>
+                <xs:element name="Naziv">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute fixed="pred:naziv" name="property" type="xs:string"
+                                    use="required"/>
+                                <xs:attribute fixed="xs:string" name="datatype" type="xs:string"
+                                    use="required"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="status" type="Status" fixed="PREDLOZEN" use="required"/>
             <xs:attribute name="redni_broj" type="xs:int"/>
+            <xs:attribute fixed="http://www.parlament.gov.rs/akt/" name="about" type="xs:string"
+                use="required"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="Pododeljak">
         <xs:sequence>
             <xs:element name="Naziv" type="xs:string"/>
-            <xs:element maxOccurs="unbounded" minOccurs="1" name="Clan" type="akt:Clan"/>
+            <xs:element maxOccurs="unbounded" minOccurs="1" name="Clan" type="Clan"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="Odeljak">
@@ -28,10 +44,10 @@
             <xs:choice>
                 <xs:sequence>
                     <xs:element maxOccurs="unbounded" minOccurs="2" name="Pododeljak"
-                        type="akt:Pododeljak"/>
+                        type="Pododeljak"/>
                 </xs:sequence>
                 <xs:sequence>
-                    <xs:element maxOccurs="unbounded" minOccurs="1" name="Clan" type="akt:Clan"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="Clan" type="Clan"/>
                 </xs:sequence>
             </xs:choice>
         </xs:sequence>
@@ -41,11 +57,10 @@
             <xs:element name="Naziv" type="xs:string"/>
             <xs:choice>
                 <xs:sequence>
-                    <xs:element maxOccurs="unbounded" minOccurs="2" name="Odeljak"
-                        type="akt:Odeljak"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="2" name="Odeljak" type="Odeljak"/>
                 </xs:sequence>
                 <xs:sequence>
-                    <xs:element maxOccurs="unbounded" name="Clan" type="akt:Clan"/>
+                    <xs:element maxOccurs="unbounded" name="Clan" type="Clan"/>
                 </xs:sequence>
             </xs:choice>
         </xs:sequence>
@@ -54,7 +69,7 @@
     <xs:complexType name="Deo">
         <xs:sequence>
             <xs:element minOccurs="0" name="Naziv" type="xs:string"/>
-            <xs:element maxOccurs="unbounded" minOccurs="2" name="Glava" type="akt:Glava"/>
+            <xs:element maxOccurs="unbounded" minOccurs="2" name="Glava" type="Glava"/>
         </xs:sequence>
         <xs:attribute name="redni_broj" type="xs:string"/>
     </xs:complexType>
@@ -68,29 +83,30 @@
     <xs:complexType name="Tacka">
         <xs:sequence>
             <xs:element name="Tekst" type="xs:string"/>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="Podtacka" type="akt:Podtacka"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="Podtacka" type="Podtacka"/>
         </xs:sequence>
         <xs:attribute name="redni_broj" type="xs:positiveInteger"/>
     </xs:complexType>
     <xs:complexType name="Stav">
         <xs:sequence>
             <xs:element name="Tekst" type="xs:string"/>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="Tacka" type="akt:Tacka"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="Tacka" type="Tacka"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="Clan">
         <xs:sequence>
             <xs:element minOccurs="0" name="Naziv" type="xs:string"/>
-            <xs:element maxOccurs="unbounded" name="Stav" type="akt:Stav"/>
+            <xs:element maxOccurs="unbounded" name="Stav" type="Stav"/>
         </xs:sequence>
         <xs:attribute name="redni_broj" type="xs:positiveInteger"/>
     </xs:complexType>
     <xs:simpleType name="Status">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="USVOJEN"/>
-            <xs:enumeration value="ODBIJEN"/>
             <xs:enumeration value="PREDLOZEN"/>
-            <xs:enumeration value="U_PROCESU"/>
+            <xs:enumeration value="USVOJEN_U_NACELU"/>
+            <xs:enumeration value="USVOJEN_U_POJEDINOSTIMA"/>
+            <xs:enumeration value="USVOJEN_U_CELINI"/>
+            <xs:enumeration value="ODBIJEN"/>
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>
