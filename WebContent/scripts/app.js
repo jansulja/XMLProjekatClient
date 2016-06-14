@@ -91,6 +91,10 @@
     templateUrl: 'views/akt-list.html',
     controller: 'akt-listCtrl'
   })
+  .when('/akt-prikaz', {
+	    templateUrl: 'views/akt-prikaz.html',
+
+	  })
 
   .otherwise({
     redirectTo: '/'
