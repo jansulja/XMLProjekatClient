@@ -80,7 +80,8 @@ $scope.searchAktove = function() {
 				$http({
 				url: "https://localhost:8443/xws/api/akt/delete",
 				method: "POST",
-				data: akt
+				data: $scope.akt.id,
+				headers: { "Content-Type": 'application/json' }
 			}).success(function (data) {
 				deferred.resolve(data);
 			});
