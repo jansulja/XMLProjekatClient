@@ -2,7 +2,7 @@
 
 angular.module('akt-list',[])
 
-.controller('akt-listCtrl', function ($scope, $q, $http, $location){
+.controller('akt-listCtrl', function ($scope, $q, $http, $location, $cacheFactory){
 
 		$scope.Upit = {Naziv: "", ID: "", Status: "" , DatumPredlogaOd: "" , DatumPredlogaDo: "", DatumUsvajanja : "" , Predlagac: "", Text: ""};
 		$scope.names = ["USVOJEN", "ODBIJEN", "PREDLOZEN","U_PROCESU"];
@@ -96,6 +96,9 @@ $scope.searchAktove = function() {
 
 	$scope.show = function(akt){
 
+//		var $httpDefaultCache = $cacheFactory.get('$http');
+//		$httpDefaultCache.remove('/views/akt-prikaz.html');
+
 		$http({
 			  method: 'GET',
 			  url: 'https://localhost:8443/xws/api/akt/' + akt.id,
@@ -114,7 +117,8 @@ $scope.searchAktove = function() {
 			var promise = deferred.promise;
 			promise.then(function (data) {
 
-				$location.path('/akt-prikaz');
+
+				$location.path('akt-prikaz');
 				//$scope.akts = data;
 
 			});
@@ -124,6 +128,39 @@ $scope.searchAktove = function() {
 
 	}
 
+
+	$scope.delete = function(akt){
+
+//		var $httpDefaultCache = $cacheFactory.get('$http');
+//		$httpDefaultCache.remove('/views/akt-prikaz.html');
+
+		$http({
+			  method: 'DELETE',
+			  url: 'https://localhost:8443/xws/api/akt/' + akt.id,
+			  headers: { "Content-Type": 'application/json' }
+			}).success(function (data) {
+			    // this callback will be called asynchronously
+			    // when the response is available
+			    //$scope.akts.push(response.data);
+				deferred.resolve(data);
+
+			//  }, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+
+			  });
+			var promise = deferred.promise;
+			promise.then(function (data) {
+
+
+
+
+			});
+
+
+
+
+	}
 
 
 });
